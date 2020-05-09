@@ -25,7 +25,7 @@ def savedata():
             time.sleep(1)
             if step == 60:
                 try:
-                    ret  = requests.post("http://mikunote.vicp.cc:10800/save",data = {"data": json.dumps(sendlist)})
+                    ret = requests.post("http://demo:10800/save", data={"data": json.dumps(sendlist)})
                 except Exception as e:
                     pass
                 step = 0

@@ -22,6 +22,7 @@ allcommands = [
 ]
 
 mc = memcache.Client(['127.0.0.1:12000'], debug=True)
+#用于识别行人 可选
 mc.set("ishuman", False)
 def run():
     connection = obd.OBD(fast=True,timeout=0.1)
