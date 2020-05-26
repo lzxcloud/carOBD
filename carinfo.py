@@ -18,7 +18,8 @@ allcommands = [
     obd.commands.CONTROL_MODULE_VOLTAGE,
     obd.commands.BAROMETRIC_PRESSURE,
     obd.commands.FUEL_RAIL_PRESSURE_DIRECT,
-    obd.commands.TIMING_ADVANCE
+    obd.commands.TIMING_ADVANCE,
+    obd.commands.MAF
 ]
 
 mc = memcache.Client(['127.0.0.1:12000'], debug=True)
@@ -43,13 +44,13 @@ def run():
             "BAROMETRIC_PRESSURE": None,
             "FUEL_RAIL_PRESSURE":None,
             "TIMING_ADVANCE":None,
+            "MAF":None,
             "ISHUMAN":mc.get("ishuman")
             }
         }
         retlist = []
         for cmd in allcommands:
             retlist.append(connection.query(cmd).value.magnitude)
-
 
 
         pack["carstate"]["RPM"] = retlist[0]
@@ -64,8 +65,14 @@ def run():
         pack["carstate"]["BAROMETRIC_PRESSURE"] = retlist[9]
         pack["carstate"]["FUEL_RAIL_PRESSURE"] = retlist[10]
         pack["carstate"]["TIMING_ADVANCE"] = retlist[11]
+        pack["carstate"]["MAF"] = retlist[12]
+        L = 1.59617602 * pack["carstate"]["RPM"] * ["carstate"]["INTAKE_PRESSURE"] / (["carstate"]["INTAKE_TEMP"] + 233) / ["carstate"]["SPEED"] / 0.002 * 0.0018
+        if ["carstate"]["SPEED"] == 0:
+            fuel = "暂无"
+        else:
+            fuel = str(L) + "/100Km"
+        pack['carstate']['fuel'] = L
         mc.set("info", pack)
         time.sleep(0.2)
-        
 time.sleep(5) 
 run()

@@ -48,6 +48,7 @@ class carinfo(Resource):
         pack = {
             "date": datetime.datetime.now().strftime('%Y-%m-%d-%H-%M-%S'),
             "carstate": {
+
                 "date": datetime.datetime.now().strftime('%Y-%m-%d-%H-%M-%S'),
                 "RPM": random.randint(800, 7000),
                 "SPEED": random.randint(0, 180),
@@ -58,7 +59,8 @@ class carinfo(Resource):
                 "THROTTLE_POS": random.randint(0, 100),
                 "RUN_TIME": 2700,
                 "CONTROL_MODULE_VOLTAGE": 14.3,
-                "BAROMETRIC_PRESSURE": 89
+                "BAROMETRIC_PRESSURE": 89,
+
             }
         }
         return pack
