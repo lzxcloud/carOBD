@@ -1,0 +1,16 @@
+{
+"obdallcommand": ["RPM",
+               "SPEED",
+               "COOLANT_TEMP",
+               "INTAKE_TEMP",
+               "INTAKE_PRESSURE",
+               "ENGINE_LOAD",
+               "THROTTLE_POS",
+               "RUN_TIME",
+               "CONTROL_MODULE_VOLTAGE",
+               "BAROMETRIC_PRESSURE",
+               "FUEL_RAIL_PRESSURE_DIRECT",
+               "TIMING_ADVANCE",
+               "MAF"
+]
+}

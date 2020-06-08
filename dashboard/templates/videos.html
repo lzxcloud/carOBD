@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% if videostate == True %}
+<h4>录制中</h4>
+
+    <form action="{% url 'stopRecord' %}" method="post">
+     {% csrf_token %}
+      <button type="submit" class="btn btn-primary">停止录制</button>
+    </form>
+
+{% elif videostate == None or videostate == False %}
+    <form action="{% url 'startRecord' %}" method="post">
+     {% csrf_token %}
+      <div class="form-group">
+        <label for="exampleInputEmail1">视频文件保存地址</label>
+        <input type="text"  name="savepath" class="form-control" value="/media/pi/UDISK/" aria-describedby="emailHelp">
+        <small id="emailHelp" class="form-text text-muted">默认为U盘</small>
+      </div>
+        <input type="submit" value="开始录制" />
+{#      <button type="submit" class="btn btn-primary">开始录制</button>#}
+    </form>
+{% endif %}
+
+{% endblock %}

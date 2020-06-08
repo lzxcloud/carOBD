@@ -23,26 +23,6 @@ api = Api(app)
 CORS(app, supports_credentials=True)
 
 
-
-def savedata():
-    step = 0
-    sendlist = []
-    while True:
-        ret = requests.get("http://localhost:5000/")
-        step +=1
-        ret = ret.json()
-        carstate = ret["carstate"]
-        kPa = carstate["INTAKE_PRESSURE"] - carstate["BAROMETRIC_PRESSURE"]
-        bar = kPa / 100
-        carstate["BAR"] = bar
-        sendlist.append(carstate)
-        time.sleep(1)
-        if step == 60:  
-            ret  = requests.post("http://lzxcloud.applinzi.com/save",data = {"data": json.dumps(sendlist)})
-            step = 0
-            sendlist = []
-
-
 class carinfo(Resource):
     def get(self):
         pack = {
@@ -71,9 +51,9 @@ api.add_resource(carinfo, '/')
 if __name__ == '__main__':
     #result = bluetooth.lookup_name('DC:0D:30:47:76:43', timeout=3)
     # if (result != None):
-    time.sleep(5)
-    t1 = threading.Thread(target=savedata)
-    t1.start()
+    # time.sleep(5)
+    # t1 = threading.Thread(target=savedata)
+    # t1.start()
     app.run(host='0.0.0.0')
     
     # else:
