@@ -3,8 +3,6 @@ import memcache
 import time
 import  requests
 import json
-# 选择已有仓库
-
 #发送信息到远端服务器
 
 
