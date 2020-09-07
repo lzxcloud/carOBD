@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <div class="header bg-primary pb-6">
+        <div class="container-fluid">
+            <div class="header-body">
+                <div class="row align-items-center py-4">
+                    <div class="col-lg-6 col-7">
+                        <h6 class="h2 text-white d-inline-block mb-0">视频模块</h6>
+                        <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
+                            <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
+                                <li class="breadcrumb-item"><a href="{% url 'video' %}"><i class="fas fa-home">视频总揽</i></a>
+                                </li>
+                                <li class="breadcrumb-item"><a href="{% url 'record' %}">录制模式</a></li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid mt--6">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card-wrapper">
+                    <!-- Input groups -->
+                    <div class="card">
+                        <!-- Card header -->
+                        <div class="card-header">
+                            <h2>录制控制</h2>
+                        </div>
+                        <!-- Card body -->
+                        <div class="card-body">
+                            {% if videostate == True %}
+                                <h4>录制中</h4>
+                                <form action="{% url 'stopRecord' %}" method="post">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-primary">停止录制</button>
+                                </form>
+
+                            {% elif videostate == None or videostate == False %}
+                                <form action="{% url 'startRecord' %}" method="post">
+                                    {% csrf_token %}
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">视频文件保存地址</label>
+                                        <input type="text" name="savepath" class="form-control" value="/media/pi/UDISK/"
+                                               aria-describedby="emailHelp">
+                                        <small id="emailHelp" class="form-text text-muted">默认为U盘</small>
+                                    </div>
+{#                                    <input type="submit" value="开始录制"/>#}
+                                          <button type="submit" class="btn btn-primary">开始录制</button>
+                                </form>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
